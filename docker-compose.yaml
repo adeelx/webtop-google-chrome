@@ -1,19 +1,31 @@
 ---
-version: '2.1'
+version: "2.1"
 services:
+
+  nginx:
+    image: lscr.io/linuxserver/nginx:latest
+    container_name: nginx
+    environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=America/Toronto
+    volumes:
+    - ./config-nginx:/config
+    ports:
+    - 5080:80
+    restart: unless-stopped
+
   webtop:
+    image: docker.io/adeelx/webtop-google-chrome:latest
     container_name: webtop
     environment:
     - PUID=1000
     - PGID=1000
     - TZ=America/Toronto
-    image: docker.io/adeelx/webtop-google-chrome:latest
-    ports:
-    - 3000:3000
-    restart: unless-stopped
     shm_size: 1gb
     volumes:
-    - ./config:/config
+    - ./config-webtop:/config
     - /var/run/docker.sock:/var/run/docker.sock
     cap_add:
     - SYS_ADMIN
+    restart: unless-stopped

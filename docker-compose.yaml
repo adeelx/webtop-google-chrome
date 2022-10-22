@@ -13,6 +13,7 @@ services:
     - ./config-nginx:/config
     ports:
     - 5080:80
+    - 50443:443
     restart: unless-stopped
 
   webtop:

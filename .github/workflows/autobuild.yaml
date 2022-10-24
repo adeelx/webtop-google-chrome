@@ -1,0 +1,25 @@
+name: Scan Docker Repo
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  scan:
+    name: List Recent Updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Scan Docker Repository
+        uses: dhet/scan-docker-tags-action@v1.0.1
+        with:
+          image: linuxserver/webtop
+          max-age-minutes: 5
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          tag-regex: ubuntu-xfce
+        id: scan
+
+      - name: Print
+        run: "echo 'Recent updates: ${{ steps.scan.outputs.tags }}'"

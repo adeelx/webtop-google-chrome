@@ -1,4 +1,4 @@
-.PHONY: build tag push clean publish
+.PHONY: build tag push clean publish login refresh
 
 DOCKER_REGISTRY ?= docker.io
 IMAGE_NAME := adeelx/webtop-google-chrome
@@ -24,3 +24,9 @@ login:
 	@docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
 
 publish: build tag login push clean
+
+refresh:
+	sed -i -E "/Last updated:/s/Last updated: .*?/Last updated: $(shell date)/g" README.md
+	git add README.md
+	git commit -m "Forced update to initiate new image build."
+	git push origin main

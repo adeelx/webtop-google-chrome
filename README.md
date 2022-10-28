@@ -2,4 +2,4 @@
 
 Builds on top of the`webtop` container, `ubuntu-xfce` tag from [LinuxServer.io](https://fleet.linuxserver.io/image?name=linuxserver/webtop)
 
-Last updated: Fri 21 Oct 2022 09:22:08 PM EDT
+Last updated: Fri 28 Oct 2022 06:27:44 PM EDT
